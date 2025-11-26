@@ -1,3 +1,7 @@
+/* =========================================
+   SIMULATEUR DE DEVIS - STYLE FINAL V6.4
+   ========================================= */
+
 /* --- Conteneur principal du Wizard --- */
 .hub-sim-wizard {
     background: #fff;
@@ -6,13 +10,14 @@
     padding: 30px;
     margin: 20px auto;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-/* --- Indicateurs de progression (Haut) --- */
+/* --- Indicateurs de progression (Texte) --- */
 .sim-progress {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px; /* Espace réduit avant la barre */
+    margin-bottom: 15px;
 }
 .step-indicator {
     font-weight: bold;
@@ -25,24 +30,24 @@
     color: var(--secondary-color-hex);
 }
 
-/* --- Barre de progression --- */
+/* --- Barre de progression (Visuelle) --- */
 .sim-progress-bar-container {
     width: 100%;
     height: 6px;
     background-color: #f2f5f8;
     border-radius: 3px;
-    margin-bottom: 40px; /* Espace avant le contenu */
+    margin-bottom: 40px;
     overflow: hidden;
 }
 .sim-progress-bar {
     height: 100%;
     background-color: var(--secondary-color-hex);
     border-radius: 3px;
-    width: 0%; /* Valeur initiale */
-    transition: width 0.4s ease-in-out; /* Animation fluide */
+    width: 0%; /* Animé par JS */
+    transition: width 0.4s ease-in-out;
 }
 
-/* --- Gestion des étapes (Masquer/Afficher) --- */
+/* --- Gestion des étapes --- */
 .sim-step {
     display: none; 
     animation: fadeIn 0.5s;
@@ -56,7 +61,7 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Espace sous les titres d'étape */
+/* Titres des étapes */
 .sim-step h3 {
     color: #33475b;
     text-align:center;
@@ -64,7 +69,9 @@
     margin-bottom: 40px; 
 }
 
-/* --- Styles Étape 1 : Checkboxes --- */
+/* =========================================
+   ETAPE 1 : CHECKBOXES (Cartes)
+   ========================================= */
 .checkbox-group {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -79,14 +86,13 @@
     padding: 15px;
     cursor: pointer;
     transition: all 0.2s;
-    position: relative; /* Pour le positionnement du custom check */
+    position: relative;
 }
 .option-box:hover {
     border-color: #00a4bd;
 }
 
-/* --- NOUVEAU STYLE CHECKBOX (V6.1) --- */
-/* On cache la checkbox native */
+/* Cache la checkbox native */
 .option-box input[type="checkbox"] {
     position: absolute;
     opacity: 0;
@@ -95,7 +101,7 @@
     width: 0;
 }
 
-/* Création de la fausse checkbox */
+/* Checkbox personnalisée (Carrée) */
 .box-content::before {
     content: '';
     display: inline-block;
@@ -109,7 +115,7 @@
     margin-top: 2px;
     transition: all 0.2s ease-in-out;
     flex-shrink: 0;
-    margin-bottom:8px;
+    margin-bottom: 8px;
     
     /* Icône check (cachée par défaut) */
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
@@ -126,16 +132,16 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Effet hover sur la box entière */
+/* Effet hover */
 .option-box:hover .box-content::before {
     border-color: #00a4bd;
 }
-/* -------------------------------------- */
 
+/* Texte dans les cartes */
 .box-content strong { display: block; color: #33475b; }
 .box-content small { color: #7c98b6; font-size: 0.85em; }
 
-/* Style pour les options désactivées */
+/* Options désactivées (grisées) */
 .option-box.disabled-option {
     opacity: 0.5;
     background-color: #f9f9f9;
@@ -147,7 +153,9 @@
 }
 
 
-/* --- Styles Étape 2 : Sections --- */
+/* =========================================
+   ETAPE 2 : DÉTAILS & QUANTITÉS
+   ========================================= */
 .detail-section {
     padding-top: 20px;
     margin-top: 20px;
@@ -168,29 +176,26 @@
     color: #fff;
 }
 
-/* Ligne (Flexbox) */
+/* Ligne de configuration */
 .sim-row {
     margin-bottom: 38px;
-    padding:0 16px;
+    padding: 0 16px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
 }
 
-/* Wrapper pour label + helper */
+/* Wrapper Label + Helper */
 .label-with-helper {
     margin-right: 15px;
     flex: 1; 
 }
-
 .sim-row label {
     font-weight: 600;
     color: #33475b;
     margin-bottom: 0; 
 }
-
-/* Style du texte d'aide */
 .sim-helper-text {
     display: block;
     font-size: 14px;
@@ -201,7 +206,7 @@
     line-height: 1.4;
 }
 
-/* Cas du forfait blog */
+/* Cas spécial (Forfait Blog) */
 .sim-row.info-only {
     justify-content: flex-start;
     font-style: italic;
@@ -211,16 +216,15 @@
     border-radius: 5px;
 }
 
-
-/* Compteur +/- */
+/* --- Compteur +/- --- */
 .qty-input-wrapper {
     display: inline-flex;
     align-items: center;
     border: 1px solid #cbd6e2;
     border-radius: 5px;
     overflow: hidden; 
+    box-sizing: border-box;
 }
-
 .qty-btn {
     background: #f5f8fa;
     border: none;
@@ -230,6 +234,7 @@
     font-weight: bold;
     color: #33475b;
     line-height: 1;
+    flex-shrink: 0;
 }
 .qty-btn:hover {
     background: #eaf0f6;
@@ -241,15 +246,17 @@
     border-left: 1px solid #cbd6e2;
 }
 
-/* Input "sim-input" */
+/* Input central du compteur */
 .sim-input {
-    width: 45px;
+    width: 45px !important; /* Force la largeur */
     padding: 8px 5px;
     border: none;
     font-size: 1.1em;
     font-weight: bold;
     text-align: center;
     color: #33475b;
+    background-color: #fff;
+    margin: 0;
     -moz-appearance: textfield;
     appearance: none;
 }
@@ -259,8 +266,22 @@
     margin: 0;
 }
 
+/* Style pour compteur verrouillé (Tableau final) */
+.qty-input-wrapper.disabled-locked {
+    opacity: 0.7;
+    background-color: #f5f8fa;
+}
+.qty-input-wrapper.disabled-locked .sim-input {
+    background-color: transparent;
+    color: #777;
+    font-weight: bold;
+}
+.qty-input-wrapper.disabled-locked .qty-btn {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
 
-/* --- NOUVEAU STYLE TOGGLE (V6.1) --- */
+/* --- Toggle Switch (Oui/Non) --- */
 .sim-row-toggle {
     display: flex;
     align-items: center;
@@ -277,11 +298,9 @@
 }
 
 .sim-toggle {
-    /* Reset apparence native */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    /* Rail */
     width: 46px;
     height: 24px;
     background-color: #cbd6e2;
@@ -293,8 +312,6 @@
     margin-right: 0;
     flex-shrink: 0;
 }
-
-/* Bouton rond (thumb) */
 .sim-toggle::after {
     content: '';
     position: absolute;
@@ -307,18 +324,14 @@
     transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
     box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
-
-/* État coché */
 .sim-toggle:checked {
     background-color: var(--secondary-color-hex);
 }
 .sim-toggle:checked::after {
     transform: translateX(22px);
 }
-/* ----------------------------------- */
 
-
-/* Sous-section (pour blog additionnel) */
+/* Sous-section */
 .sub-row {
     margin-left: 20px;
     padding-left: 20px;
@@ -327,7 +340,10 @@
     display: none;
 }
 
-/* --- Styles Étape 3 (Design) --- */
+
+/* =========================================
+   ETAPE 3 : DESIGN (Radios)
+   ========================================= */
 .design-radio-group {
     display: flex;
     flex-direction: column;
@@ -341,19 +357,74 @@
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.2s;
+    position: relative;
 }
 .design-option:hover {
     border-color: #00a4bd;
 }
+
+/* Cache le radio natif */
 .design-option input[type="radio"] {
-    margin-right: 12px;
-    transform: scale(1.2);
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
 }
+
+/* Span texte */
 .design-option span {
     font-weight: 600;
     color: #33475b;
+    position: relative;
+    padding-left: 35px; /* Place pour le rond */
+    display: inline-block;
+    width: 100%;
 }
 
+/* Cercle extérieur */
+.design-option span::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 20px;
+    width: 20px;
+    border: 2px solid #cbd6e2;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+/* Point intérieur (Dot) - CORRIGÉ V6.4 */
+.design-option span::after {
+    content: '';
+    position: absolute;
+    left: 4px; /* Demande spécifique V6.4 */
+    top: 50%;
+    /* Centrage vertical uniquement, position horizontale gérée par 'left' */
+    transform: translateY(-50%) scale(0);
+    width: 12px; 
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--secondary-color-hex);
+    transition: transform 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* État coché */
+.design-option input[type="radio"]:checked + span::before {
+    border-color: var(--secondary-color-hex);
+}
+.design-option input[type="radio"]:checked + span::after {
+    transform: translateY(-50%) scale(1); /* Pop */
+}
+.design-option:hover span::before {
+    border-color: #00a4bd;
+}
+
+/* Sous-champs (URL, Date) */
 .design-sub-field {
     padding: 15px;
     background-color: #f5f8fa;
@@ -386,7 +457,9 @@
 }
 
 
-/* --- Styles Étape 4 : Résumé & Total --- */
+/* =========================================
+   ETAPE 4 : ESTIMATION
+   ========================================= */
 .summary-container {
     background: #fefefe;
     border: 1px solid #eee;
@@ -402,7 +475,6 @@
 .summary-container .sim-row:last-child {
     border-bottom: none;
 }
-
 
 .total-box {
     background: #33475b;
@@ -424,7 +496,9 @@
 }
 
 
-/* --- Boutons d'action (Navigation) --- */
+/* =========================================
+   BOUTONS DE NAVIGATION
+   ========================================= */
 .sim-actions {
     margin-top: 40px;
     display: flex;
@@ -479,23 +553,7 @@
     text-align: center;
 }
 
-/* Style pour compteur verrouillé */
-.qty-input-wrapper.disabled-locked {
-    opacity: 0.7;
-    background-color: #f5f8fa;
-}
-.qty-input-wrapper.disabled-locked .sim-input {
-    background-color: transparent;
-    color: #777;
-    font-weight: bold;
-}
-.qty-input-wrapper.disabled-locked .qty-btn {
-    cursor: not-allowed;
-    opacity: 0.5;
-}
-
-
-/* Style pour Flatpickr */
+/* Styles pour Flatpickr */
 .flatpickr-calendar {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     border-radius: 6px;
@@ -599,9 +657,9 @@
     width:auto!important;
 }
 
-/* ---------------------------------- */
-/* --- BLOC RESPONSIVE (V5.5) --- */
-/* ---------------------------------- */
+/* =========================================
+   RESPONSIVE (Mobile < 992px)
+   ========================================= */
 @media (max-width: 991px) {
     .sim-helper-text {
         font-size:12px;
@@ -610,9 +668,11 @@
         padding: 20px;
     }
 
+    /* Masque les titres inactifs */
     .step-indicator span {
         display: none;
     }
+    /* Affiche uniquement le numéro et titre actif */
     .step-indicator.active {
         font-size: 0.9em; 
     }
@@ -627,6 +687,7 @@
         gap: 15px;
     }
 
+    /* Layout vertical pour les labels et compteurs */
     .label-with-helper {
         flex-basis: 100%;
         margin-bottom: 8px;
@@ -638,8 +699,9 @@
     .qty-input-wrapper {
         width: 100%;
     }
+    /* L'input prend 100% de l'espace disponible dans le wrapper en mobile aussi */
     .sim-input {
-        width: 100%; 
+        width: 100% !important; 
     }
 
     .sub-row {
@@ -647,6 +709,7 @@
         padding-left: 15px;
     }
 
+    /* Total en colonne */
     .total-box {
         flex-direction: column;
         align-items: flex-start;
@@ -657,6 +720,7 @@
         font-size: 2em;
     }
 
+    /* Boutons empilés */
     .sim-actions {
         flex-direction: column-reverse; 
         gap: 10px;
@@ -668,9 +732,19 @@
         font-size: 1em;
     }
     
+    /* Formulaire HubSpot responsive */
     #step-5 .hs-submit .hs-button {
         width: 100%;
         padding: 12px 20px;
         font-size: 1em;
     }
+}
+
+/* Desktop Fixes (CORRIGÉ V6.4) */
+@media (min-width: 992px) {
+    .label-with-helper {
+        flex: 0 0 65%;
+        margin-bottom: 0;
+    }
+    /* Suppression de la largeur fixe .qty-input-wrapper demandée */
 }
