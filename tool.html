@@ -1,0 +1,116 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script>
+<script charset="utf-8" type="text/javascript" src="//js-eu1.hsforms.net/forms/embed/v2.js"></script>
+{{ require_css(get_asset_url('../cp_simulateur.css'), { async: false }) }}
+
+
+<div class="hub-sim-wizard">
+
+    <div class="sim-progress">
+        <span class="step-indicator active" data-step="1">1. <span>Besoins</span></span>
+        <span class="step-indicator" data-step="2">2. <span>Détails</span></span>
+        <span class="step-indicator" data-step="3">3. <span>Maquettes</span></span>
+        <span class="step-indicator" data-step="4">4. <span>Estimation</span></span>
+        <span class="step-indicator" data-step="5">5. <span>Contact</span></span> 
+    </div>
+    
+    <div class="sim-progress-bar-container">
+        <div class="sim-progress-bar" style="width: 20%;"></div>
+    </div>
+
+    <div id="hub-quote-wizard">
+        <div class="sim-step active" id="step-1">
+            <h3>De quoi avez-vous besoin ?</h3>
+            <div class="checkbox-group">
+                <label class="option-box"><input type="checkbox" name="needs" value="site"><span class="box-content"><strong>Un Site Internet complet</strong><small>Thème HubSpot, templates et modules</small></span></label>
+                <label class="option-box"><input type="checkbox" name="needs" value="blog"><span class="box-content"><strong>Un Blog</strong><small>Template Index et Article</small></span></label>
+                <label class="option-box"><input type="checkbox" name="needs" value="templates"><span class="box-content"><strong>Templates de Pages / Landing Pages</strong><small>Templates avec mise en page spécifique</small></span></label>
+            </div>
+            <div class="sim-error-message" style="display:none;"></div>
+            <div class="sim-actions right">
+                <button type="button" class="btn-hub btn-next">Suivant &rarr;</button>
+            </div>
+        </div>
+
+        <div class="sim-step" id="step-2">
+            <h3>Détails de votre demande</h3>
+            <div class="detail-section" id="detail-site" style="display:none;">
+                <h4>Configuration de votre Site Internet</h4>
+                <div class="sim-row"><div class="label-with-helper"><label>Nombre de templates de pages</label><small class="sim-helper-text">Ces templates permettent de créer des pages de site internet sur HubSpot. Ils peuvent couvrir notamment la page d'accueil, les pages services, page à propos...</small></div><div class="qty-input-wrapper"><button type="button" class="qty-btn" data-action="minus" aria-label="Retirer 1">-</button><input type="number" class="sim-input input-calc" data-category="Site Web" data-label="Templates Site" min="0" value="0" data-price="625"><button type="button" class="qty-btn" data-action="plus" aria-label="Ajouter 1">+</button></div></div>
+                <div class="sim-row"><div class="label-with-helper"><label>Nombre de templates de Landing Page</label><small class="sim-helper-text">Ces templates ont davantage pour objectifs de convertir vos visiteurs en leads. Cela peut concerner des LP Produit, Webinar, Promotion...</small></div><div class="qty-input-wrapper"><button type="button" class="qty-btn" data-action="minus" aria-label="Retirer 1">-</button><input type="number" class="sim-input input-calc" data-category="Site Web" data-label="Templates LP" min="0" value="0" data-price="500"><button type="button" class="qty-btn" data-action="plus" aria-label="Ajouter 1">+</button></div></div>
+                <div class="sim-row-toggle"><label>Intégrer un Blog ?</label><input type="checkbox" id="blog-toggle-site" class="sim-toggle"></div>
+                <input type="hidden" id="blog-base-price-site" class="input-calc" data-category="Site Web" data-label="Architecture Blog de base" value="0" data-price="900">
+                <div class="sub-row" id="blog-additionnel-site" style="display: none;"><div class="sim-row"><div class="label-with-helper"><label>Nombre de templates additionnels pour le blog (optionnel)</label><small class="sim-helper-text">Ces templates peuvent venir compléter l'offre de base qui inclut les templates Index et Article. Cela peut concerner une page Auteur, une page Catégorie...</small></div><div class="qty-input-wrapper"><button type="button" class="qty-btn" data-action="minus" aria-label="Retirer 1">-</button><input type="number" class="sim-input input-calc" data-category="Site Web" data-label="Templates Blog Add." min="0" value="0" data-price="500"><button type="button" class="qty-btn" data-action="plus" aria-label="Ajouter 1">+</button></div></div></div>
+            </div>
+            <div class="detail-section" id="detail-blog" style="display:none;">
+                <h4>Pour le Blog</h4>
+                <div class="sim-row info-only"><input type="hidden" class="input-calc" data-category="Blog" data-label="Architecture Blog de base" value="1" data-price="900"><p><em>Le forfait Blog inclut le listing et la vue article (900€).</em></p></div>
+                <div class="sim-row"><div class="label-with-helper"><label>Templates additionnels (optionnel)</label><small class="sim-helper-text">Ces templates peuvent venir compléter l'offre de base qui inclut les templates Index et Article. Cela peut concerner une page Auteur, une page Catégorie...</small></div><div class="qty-input-wrapper"><button type="button" class="qty-btn" data-action="minus" aria-label="Retirer 1">-</button><input type="number" class="sim-input input-calc" data-category="Blog" data-label="Templates Blog Add." min="0" value="0" data-price="500"><button type="button" class="qty-btn" data-action="plus" aria-label="Ajouter 1">+</button></div></div>
+            </div>
+            <div class="detail-section" id="detail-templates" style="display:none;">
+                <h4>Templates Pages & Landing Pages</h4>
+                <div class="sim-row"><div class="label-with-helper"><label>Nombre de Templates de Page (Classique)</label><small class="sim-helper-text">Correspond aux pages "classiques" de votre site (ex: Services, A propos, Contact...).</small></div><div class="qty-input-wrapper"><button type="button" class="qty-btn" data-action="minus" aria-label="Retirer 1">-</button><input type="number" class="sim-input input-calc" data-category="Pages" data-label="Template Page" min="0" value="0" data-price="625"><button type="button" class="qty-btn" data-action="plus" aria-label="Ajouter 1">+</button></div></div>
+                <div class="sim-row"><div class="label-with-helper"><label>Nombre de Templates Landing Page</label><small class="sim-helper-text">Pages optimisées pour la conversion (ex: Webinar, Livre Blanc, Promotion...).</small></div><div class="qty-input-wrapper"><button type="button" class="qty-btn" data-action="minus" aria-label="Retirer 1">-</button><input type="number" class="sim-input input-calc" data-category="Pages" data-label="Template LP" min="0" value="0" data-price="500"><button type="button" class="qty-btn" data-action="plus" aria-label="Ajouter 1">+</button></div></div>
+            </div>
+            <div class="sim-error-message" style="display:none;"></div>
+            <div class="sim-actions"><button type="button" class="btn-hub btn-prev">&larr; Retour</button><button type="button" class="btn-hub btn-next">Suivant &rarr;</button></div>
+        </div>
+
+        <div class="sim-step" id="step-3">
+            <h3>Avez-vous déjà vos maquettes (design) ?</h3>
+
+            <div class="design-radio-group">
+                <label class="design-option"><input type="radio" name="design-status" value="oui"><span>Oui, les maquettes sont prêtes</span></label>
+                <div class="design-sub-field" id="design-field-oui" style="display:none;"><label for="maquette-url">URL publique de la maquette (ex: Figma, Adobe XD)</label><input type="url" id="maquette-url" class="sim-input-text" placeholder="https://www.figma.com/..."></div>
+
+                <label class="design-option">
+                    <input type="radio" name="design-status" value="non">
+                    <span>Non, elles sont en cours de création</span>
+                </label>
+                <div class="design-sub-field" id="design-field-non" style="display:none;">
+                    <label for="maquette-date-picker">Date estimative de livraison des maquettes</label>
+                    <input type="text" id="maquette-date-picker" class="sim-input-text" placeholder="Sélectionnez une date...">
+                </div>
+
+                <label class="design-option"><input type="radio" name="design-status" value="aide"><span>Je n'ai pas de solution pour le design</span></label>
+                <div class="design-sub-field info-box" id="design-field-aide" style="display:none;"><p>Ce n'est pas un problème. Studio Hub travaille avec un réseau de designers web et peut vous accompagner sur cette partie. Nous pourrons en discuter lors de notre premier échange.</p></div>
+            </div>
+
+            <div class="sim-error-message" style="display:none;"></div>
+            <div class="sim-actions">
+                <button type="button" class="btn-hub btn-prev">&larr; Retour</button>
+                <button type="button" class="btn-hub btn-next" id="calc-trigger">Voir mon estimation</button>
+            </div>
+        </div>
+
+        <div class="sim-step" id="step-4">
+            <h3>Votre Estimation</h3>
+            <div id="summary-list" class="summary-container"></div>
+            <div class="total-box"><span>Total Estimé (HT)</span><span id="final-total">0,00 €</span></div>
+            <p class="disclaimer">*Cette estimation est fournie à titre indicatif et n'est pas contractuelle. Elle concerne uniquement le développement des éléments listés.</p>
+            <div class="sim-actions">
+                <button type="button" class="btn-hub btn-prev">&larr; Modifier</button>
+                <button type="button" class="btn-hub btn-cta" id="btn-go-to-form">Recevoir l'estimation par e-mail</button>
+            </div>
+        </div>
+
+        <div class="sim-step" id="step-5">
+            <h3>Recevez votre estimation</h3>
+            <p class="sim-form-intro">Entrez votre e-mail pour recevoir ce récapitulatif et démarrer la conversation.</p>
+
+            {% form
+                form_to_use="{{ module.form_field.form_id }}"
+                response_response_type="{{ module.form_field.response_type }}"
+                response_message="{{ module.form_field.message }}"
+                response_redirect_id="{{ module.form_field.redirect_id }}"
+                response_redirect_url="{{module.form_field.redirect_url}}"
+                gotowebinar_webinar_key="{{ module.form_field.gotowebinar_webinar_key }}"
+            %}
+
+            <div class="sim-actions">
+                <button type="button" class="btn-hub btn-prev">&larr; Modifier l'estimation</button>
+            </div>
+        </div>
+    </div> 
+</div>
