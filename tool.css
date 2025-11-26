@@ -12,10 +12,6 @@
 .sim-progress {
     display: flex;
     justify-content: space-between;
-    /* Suppression de la bordure inférieure ici pour laisser place à la barre */
-    /* margin-bottom: 30px;  <-- SUPPRIMÉ */
-    /* border-bottom: 2px solid #f2f5f8; <-- SUPPRIMÉ */
-    /* padding-bottom: 15px; <-- SUPPRIMÉ */
     margin-bottom: 15px; /* Espace réduit avant la barre */
 }
 .step-indicator {
@@ -29,7 +25,7 @@
     color: var(--secondary-color-hex);
 }
 
-/* --- NOUVEAU (V6.0) : Barre de progression --- */
+/* --- Barre de progression --- */
 .sim-progress-bar-container {
     width: 100%;
     height: 6px;
@@ -83,14 +79,59 @@
     padding: 15px;
     cursor: pointer;
     transition: all 0.2s;
+    position: relative; /* Pour le positionnement du custom check */
 }
 .option-box:hover {
     border-color: #00a4bd;
 }
-.option-box input {
-    margin-top: 5px;
-    margin-right: 10px;
+
+/* --- NOUVEAU STYLE CHECKBOX (V6.1) --- */
+/* On cache la checkbox native */
+.option-box input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
 }
+
+/* Création de la fausse checkbox */
+.box-content::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #cbd6e2;
+    border-radius: 4px;
+    background-color: #fff;
+    margin-right: 15px;
+    vertical-align: top;
+    margin-top: 2px;
+    transition: all 0.2s ease-in-out;
+    flex-shrink: 0;
+    margin-bottom:8px;
+    
+    /* Icône check (cachée par défaut) */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    background-size: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* État coché */
+.option-box input[type="checkbox"]:checked + .box-content::before {
+    background-color: var(--secondary-color-hex);
+    border-color: var(--secondary-color-hex);
+    background-size: 16px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Effet hover sur la box entière */
+.option-box:hover .box-content::before {
+    border-color: #00a4bd;
+}
+/* -------------------------------------- */
+
 .box-content strong { display: block; color: #33475b; }
 .box-content small { color: #7c98b6; font-size: 0.85em; }
 
@@ -219,7 +260,7 @@
 }
 
 
-/* Ligne pour toggle "Oui/Non" */
+/* --- NOUVEAU STYLE TOGGLE (V6.1) --- */
 .sim-row-toggle {
     display: flex;
     align-items: center;
@@ -234,10 +275,48 @@
     color: #33475b;
     margin-bottom: 0;
 }
+
 .sim-toggle {
-    transform: scale(1.5);
-    margin-right: 10px;
+    /* Reset apparence native */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Rail */
+    width: 46px;
+    height: 24px;
+    background-color: #cbd6e2;
+    border-radius: 24px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+    margin-right: 0;
+    flex-shrink: 0;
 }
+
+/* Bouton rond (thumb) */
+.sim-toggle::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-color: #fff;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* État coché */
+.sim-toggle:checked {
+    background-color: var(--secondary-color-hex);
+}
+.sim-toggle:checked::after {
+    transform: translateX(22px);
+}
+/* ----------------------------------- */
+
 
 /* Sous-section (pour blog additionnel) */
 .sub-row {
